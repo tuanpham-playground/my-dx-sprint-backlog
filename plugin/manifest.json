@@ -28,9 +28,9 @@
     ]
   },
   "name": {
-    "en": "dx-sprint-backlog"
+    "en": "Kintone DX Sprint Backlog"
   },
   "description": {
-    "en": "dx-sprint-backlog"
+    "en": "This plugin is used to get data from Zenhub"
   }
 }
