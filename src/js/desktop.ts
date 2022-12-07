@@ -5,7 +5,7 @@
 jQuery.noConflict();
 
 (($, PLUGIN_ID) => {
-  'use strict';
+  "use strict";
 
   const CONFIG = kintone.plugin.app.getConfig(PLUGIN_ID);
   if (!CONFIG) {
@@ -20,22 +20,27 @@ jQuery.noConflict();
   const makeGraphQLRequest = (url: string, headers: object, data: string) => {
     return $.ajax({
       url: url,
-      method: 'post',
+      method: "post",
       headers: headers,
-      data: data
+      data: data,
     });
-  }
+  };
 
   const getRepoConnectionId = (repoName: string): number => {
-    const repoConnection = CONFIG_REPO_CONNECTION.find((repo: {name: string, ghId: number}) => repoName === repo.name);
+    const repoConnection = CONFIG_REPO_CONNECTION.find(
+      (repo: { name: string; ghId: number }) => repoName === repo.name
+    );
     return repoConnection ? repoConnection.ghId : 0;
-  }
+  };
 
-  const makeRequestInfo = (repoId: number, issue: number): {headers: object, data: string} => {
+  const makeRequestInfo = (
+    repoId: number,
+    issue: number
+  ): { headers: object; data: string } => {
     const headers = {
-      "Authorization":  `Bearer ${CONFIG_API_TOKEN}`,
+      Authorization: `Bearer ${CONFIG_API_TOKEN}`,
       "Content-Type": "application/json",
-    }
+    };
     const data = JSON.stringify({
       query: `query getIssueInfo($repositoryGhId: Int!, $issueNumber: Int!) {
         issueByInfo(repositoryGhId: $repositoryGhId, issueNumber: $issueNumber) {
@@ -61,16 +66,16 @@ jQuery.noConflict();
         }
       }`,
       variables: {
-        "repositoryGhId": repoId,
-        "issueNumber": issue
-      }
+        repositoryGhId: repoId,
+        issueNumber: issue,
+      },
     });
 
     return {
       headers,
-      data
-    }
-  }
+      data,
+    };
+  };
 
   const lookupIssue = (event: any) => {
     const record = event.record;
@@ -79,33 +84,33 @@ jQuery.noConflict();
     backlogs.forEach((backlog: any) => {
       const repoName = backlog.value.repo.value;
       const issueKey = parseInt(backlog.value.issue.value, 10);
-      if(!repoName || !issueKey){
+      if (!repoName || !issueKey) {
         requests.push(Promise.resolve());
         return;
       }
 
       const repoId = getRepoConnectionId(repoName);
-      const {headers, data} = makeRequestInfo(repoId, issueKey);
+      const { headers, data } = makeRequestInfo(repoId, issueKey);
       const request = makeGraphQLRequest(CONFIG_API_URL, headers, data);
       requests.push(request);
-    })
+    });
 
     return requests;
-  }
+  };
 
   const convertPipelineToStatus = (pipeline: string): string => {
-      const statusMapping: {[pipeline: string] : string} = {
-        "ready": "🔜 Ready",
-        "icebox": "🔜 Ready",
-        "new issues": "🔜 Ready",
-        "in progress": "🏃 In Progress",
-        "in review": "🏃 In Progress",
-        "feedback": "🏃 In Progress",
-        "closed": "🎉 Done"
-      }
+    const statusMapping: { [pipeline: string]: string } = {
+      ready: "🔜 Ready",
+      icebox: "🔜 Ready",
+      "new issues": "🔜 Ready",
+      "in progress": "🏃 In Progress",
+      "in review": "🏃 In Progress",
+      feedback: "🏃 In Progress",
+      closed: "🎉 Done",
+    };
 
-      return statusMapping[pipeline.toLowerCase()];
-  }
+    return statusMapping[pipeline.toLowerCase()];
+  };
 
   const clearValue = (targetBacklog: any) => {
     const backlog = targetBacklog;
@@ -115,39 +120,41 @@ jQuery.noConflict();
     backlog.value.status.value = convertPipelineToStatus("ready");
 
     return backlog;
-  }
+  };
 
   const setValue = (targetBacklog: any, issueInfo: any) => {
     const backlog = targetBacklog;
-    if(!issueInfo){
+    if (!issueInfo) {
       return backlog;
     }
 
-    if(!backlog.value.repo.value || !backlog.value.issue.value){
+    if (!backlog.value.repo.value || !backlog.value.issue.value) {
       return backlog;
     }
 
     backlog.value.title.value = issueInfo.title;
     backlog.value.link.value = issueInfo.htmlUrl;
-    if(issueInfo.estimate){
+    if (issueInfo.estimate) {
       backlog.value.storypoint.value = parseInt(issueInfo.estimate.value, 10);
     }
 
-    if(issueInfo.state === 'CLOSED'){
+    if (issueInfo.state === "CLOSED") {
       backlog.value.status.value = convertPipelineToStatus(issueInfo.state);
-    }else{
-      backlog.value.status.value = convertPipelineToStatus(issueInfo.pipelineIssues.nodes[0].pipeline.name)
+    } else {
+      backlog.value.status.value = convertPipelineToStatus(
+        issueInfo.pipelineIssues.nodes[0].pipeline.name
+      );
     }
 
     return backlog;
-  }
+  };
 
-  const updateEvent = (event: { record: any; }) => {
-    kintone.Promise.all(lookupIssue(event)).then(function(resp) {
+  const updateEvent = (event: { record: any }) => {
+    kintone.Promise.all(lookupIssue(event)).then(function (resp) {
       const record = kintone.app.record.get();
       const backlogs = record.record.Table.value;
-      const updatedBacklogs = []
-      for(let index = 0; index<backlogs.length; index++){
+      const updatedBacklogs = [];
+      for (let index = 0; index < backlogs.length; index++) {
         const issueInfo = resp[index]?.data?.issueByInfo;
         let backlog = backlogs[index];
         backlog = clearValue(backlog);
@@ -158,13 +165,15 @@ jQuery.noConflict();
 
       kintone.app.record.set(record);
     });
-  }
+  };
 
-  kintone.events.on([
-    'app.record.create.change.issue',
-    'app.record.edit.change.issue',
-    'app.record.create.change.repo',
-    'app.record.edit.change.repo'
-  ],  (event) => updateEvent(event));
-
+  return kintone.events.on(
+    [
+      "app.record.create.change.issue",
+      "app.record.edit.change.issue",
+      "app.record.create.change.repo",
+      "app.record.edit.change.repo",
+    ],
+    (event) => updateEvent(event)
+  );
 })(jQuery, kintone.$PLUGIN_ID);
