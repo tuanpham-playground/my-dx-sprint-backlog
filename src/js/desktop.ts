@@ -114,10 +114,10 @@ jQuery.noConflict();
 
   const clearValue = (targetBacklog: any) => {
     const backlog = targetBacklog;
-    backlog.value.title.value = undefined;
-    backlog.value.link.value = undefined;
-    backlog.value.storypoint.value = undefined;
-    backlog.value.status.value = convertPipelineToStatus("ready");
+    backlog.value.pbi_title.value = undefined;
+    backlog.value.pbi_link.value = undefined;
+    backlog.value.pbi_storypoint.value = undefined;
+    backlog.value.pbi_status.value = convertPipelineToStatus("ready");
 
     return backlog;
   };
@@ -132,16 +132,16 @@ jQuery.noConflict();
       return backlog;
     }
 
-    backlog.value.title.value = issueInfo.title;
-    backlog.value.link.value = issueInfo.htmlUrl;
+    backlog.value.pbi_title.value = issueInfo.title;
+    backlog.value.pbi_link.value = issueInfo.htmlUrl;
     if (issueInfo.estimate) {
-      backlog.value.storypoint.value = parseInt(issueInfo.estimate.value, 10);
+      backlog.value.pbi_storypoint.value = parseInt(issueInfo.estimate.value, 10);
     }
 
     if (issueInfo.state === "CLOSED") {
-      backlog.value.status.value = convertPipelineToStatus(issueInfo.state);
+      backlog.value.pbi_status.value = convertPipelineToStatus(issueInfo.state);
     } else {
-      backlog.value.status.value = convertPipelineToStatus(
+      backlog.value.pbi_status.value = convertPipelineToStatus(
         issueInfo.pipelineIssues.nodes[0].pipeline.name
       );
     }

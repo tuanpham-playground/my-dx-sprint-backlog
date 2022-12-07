@@ -26,13 +26,13 @@ Manual setting for below fields:
 
 `type`: `Number`
 
-`fieldCode`: `storypoint`
+`fieldCode`: `pbi_storypoint`
 
 ### Status (with picture): 
 
 `type`: `Drop-Down`
 
-`fieldCode`: `status`
+`fieldCode`: `pbi_status`
 
 `Values`: `🔜 Ready`, `🏃 In Progress`, `🎉 Done`, `⛔️ Canceled`
 
@@ -40,13 +40,13 @@ Manual setting for below fields:
 
 `type`: `Text`
 
-`fieldCode`: `title`
+`fieldCode`: `pbi_title`
 
 ### Link
 
 `type`: `link`
 
-`fieldCode`: `link`
+`fieldCode`: `pbi_link`
 
 ## LICENSE
 
