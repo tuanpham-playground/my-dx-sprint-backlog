@@ -11,32 +11,12 @@ jQuery.noConflict();
 
   const saveSettings = (config: object) => {
     kintone.plugin.app.setConfig(config, () => {
-      showToastMessage(
-        "Success",
-        "The plug-in settings have been saved.",
-        "success"
-      );
-    });
-  };
-
-  /**
-   *
-   * @param {string} heading
-   * @param {string} message
-   * @param {string} icon info, error, warning, success,
-   */
-  const showToastMessage = (heading: string, message: string, icon: string) => {
-    $.toast({
-      heading: heading,
-      text: message,
-      showHideTransition: "slide",
-      icon: icon, // info, error, warning, success,
-      position: "top-center",
+      alert("The plug-in settings have been saved. Please update the app.");
     });
   };
 
   const ajaxErrorHandler = (error: any) => {
-    showToastMessage("Error", error, "error");
+    alert(error);
   };
 
   const makeGraphQLRequest = (
@@ -73,7 +53,7 @@ jQuery.noConflict();
         errorMessage += `${error.message}\n`;
       }
     );
-    showToastMessage("Error", errorMessage, "error");
+    alert(errorMessage);
   };
 
   $(document).ready(() => {
@@ -195,7 +175,7 @@ jQuery.noConflict();
         };
 
         if (isWorkspaceNotFound(response)) {
-          showToastMessage("Warning", "Workspace not found", "warning");
+          alert("Workspace not found");
           return;
         }
 
@@ -210,8 +190,6 @@ jQuery.noConflict();
         });
         workspaceIdInput.val(response.viewer.searchWorkspaces.nodes[0].id);
         repositoriesConnectionHidden.val(JSON.stringify(repoConnectionValue));
-
-        showToastMessage("Success", "Get workspace info success", "success");
       });
     });
   });
