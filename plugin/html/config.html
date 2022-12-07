@@ -1,0 +1,38 @@
+<section class="settings">
+  <h2 class="settings-heading">Settings for dx-sprint-backlog</h2>
+  <h3 class="settings-heading">Zenhub Authorization</h3>
+  <form class="js-submit-settings">
+    <p class="kintoneplugin-row">
+      <label for="url">
+        Zenhub’s GraphQL API URL<span style="color: red">*</span>:
+        <input type="text" class="js-zenhub-api-url kintoneplugin-input-text">
+      </label>
+    </p>
+    <p class="kintoneplugin-row">
+      <label for="api_token">
+        Zenhub’s GraphQL API Token<span style="color: red">*</span>:
+        <input type="text" class="js-zenhub-api-token kintoneplugin-input-text">
+      </label>
+    </p>
+    <p class="kintoneplugin-row">
+      <label for="workspace">
+        Zenhub workspace name<span style="color: red">*</span>:
+        <input type="text" class="js-zenhub-workspace-name kintoneplugin-input-text">
+        <a href="javascript:void(0)" class="js-get-workspace">>>> Get workspace info</a>
+      </label>
+    </p>
+    <p class="kintoneplugin-row">
+      <label for="workspace">
+        Zenhub workspace id<span style="color: red">*</span>:
+        <input type="text" class="js-zenhub-workspace-id kintoneplugin-input-text" readonly="true">
+      </label>
+    </p>
+    <h3 class="settings-heading">Repositories Connection</h3>
+    <p class="kintoneplugin-row js-zendhub-repositories-connection-area">
+    </p>
+    <p class="kintoneplugin-row">
+      <input type="hidden" class="js-zendhub-repositories-connection">
+      <button type="button" class="js-save-settings kintoneplugin-button-dialog-ok">Save</button>
+    </p>
+  </form>
+</section>
