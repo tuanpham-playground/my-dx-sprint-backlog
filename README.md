@@ -1,6 +1,8 @@
 # DX Sprint Backlog
 
-A plugin for getting zendhub data
+A plugin for getting zendhub data.
+
+It's only for the "DX Sprint Backlog" app. Not available in other apps.
 
 ## Manual settings for DX Sprint Backlog kintone app
 

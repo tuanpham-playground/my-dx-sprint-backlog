@@ -12,6 +12,9 @@
     ]
   },
   "icon": "image/icon.png",
+  "homepage_url": {
+    "en": "https://github.com/hung-cybo/dx-sprint-backlog"
+  },
   "config": {
     "html": "html/config.html",
     "js": [
@@ -31,6 +34,6 @@
     "en": "Kintone DX Sprint Backlog"
   },
   "description": {
-    "en": "This plugin is used to get data from Zenhub"
+    "en": "This plugin is used to get data from Zenhub.\n It's only for the \"DX Sprint Backlog\" app.\nNot available in other apps."
   }
 }
