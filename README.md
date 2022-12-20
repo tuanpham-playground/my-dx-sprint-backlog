@@ -8,6 +8,10 @@ It's only for the "DX Sprint Backlog" app. Not available in other apps.
 
 Manual setting for below fields:
 
+### Table
+
+`fieldCode`: `sprint_pbis`
+
 ### Repo
 
 `type`: `Drop-Down`

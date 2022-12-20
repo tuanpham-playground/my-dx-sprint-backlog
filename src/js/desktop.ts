@@ -17,6 +17,19 @@ jQuery.noConflict();
   const CONFIG_WORKSPACE_ID = CONFIG.workspaceId;
   const CONFIG_REPO_CONNECTION = JSON.parse(CONFIG.repositoriesConnection);
 
+  interface Event {
+    appId: number;
+    recordId: number;
+    record: kintone.types.SavedSprintBacklog;
+  }
+
+  interface Record {
+    record: kintone.types.SavedSprintBacklog;
+  }
+
+  type Unpacked<T> = T extends (infer U)[] ? U : T;
+  type Backlog = Unpacked<kintone.types.SprintBacklog["Table"]["value"]>;
+
   const makeGraphQLRequest = (url: string, headers: object, data: string) => {
     return $.ajax({
       url: url,
@@ -77,12 +90,12 @@ jQuery.noConflict();
     };
   };
 
-  const lookupIssue = (event: any) => {
+  const lookupIssue = (event: Event) => {
     const record = event.record;
-    const backlogs = record.Table.value;
-    const requests: any[] = [];
-    backlogs.forEach((backlog: any) => {
-      const repoName = backlog.value.repo.value;
+    const backlogs = record["Table"].value;
+    const requests: Promise<any>[] = [];
+    backlogs.forEach((backlog) => {
+      const repoName: kintone.fieldTypes.SingleLineText["value"] = backlog.value.repo.value;
       const issueKey = parseInt(backlog.value.issue.value, 10);
       if (!repoName || !issueKey) {
         requests.push(Promise.resolve());
@@ -112,17 +125,17 @@ jQuery.noConflict();
     return statusMapping[pipeline.toLowerCase()];
   };
 
-  const clearValue = (targetBacklog: any) => {
+  const clearValue = (targetBacklog: Backlog) => {
     const backlog = targetBacklog;
-    backlog.value.pbi_title.value = undefined;
-    backlog.value.pbi_link.value = undefined;
-    backlog.value.pbi_storypoint.value = undefined;
+    backlog.value.pbi_title.value = '';
+    backlog.value.pbi_link.value = '';
+    backlog.value.pbi_storypoint.value = '';
     backlog.value.pbi_status.value = convertPipelineToStatus("ready");
 
     return backlog;
   };
 
-  const setValue = (targetBacklog: any, issueInfo: any) => {
+  const setValue = (targetBacklog: Backlog, issueInfo: any) => {
     const backlog = targetBacklog;
     if (!issueInfo) {
       return backlog;
@@ -135,7 +148,7 @@ jQuery.noConflict();
     backlog.value.pbi_title.value = issueInfo.title;
     backlog.value.pbi_link.value = issueInfo.htmlUrl;
     if (issueInfo.estimate) {
-      backlog.value.pbi_storypoint.value = parseInt(issueInfo.estimate.value, 10);
+      backlog.value.pbi_storypoint.value = issueInfo.estimate.value;
     }
 
     if (issueInfo.state === "CLOSED") {
@@ -149,14 +162,14 @@ jQuery.noConflict();
     return backlog;
   };
 
-  const updateEvent = (event: { record: any }) => {
-    kintone.Promise.all(lookupIssue(event)).then(function (resp) {
-      const record = kintone.app.record.get();
+  const updateEvent = (event: Event) => {
+    kintone.Promise.all(lookupIssue(event)).then( (resp) => {
+      const record: Record = kintone.app.record.get();
       const backlogs = record.record.Table.value;
       const updatedBacklogs = [];
       for (let index = 0; index < backlogs.length; index++) {
         const issueInfo = resp[index]?.data?.issueByInfo;
-        let backlog = backlogs[index];
+        let backlog: Backlog = backlogs[index];
         backlog = clearValue(backlog);
         backlog = setValue(backlog, issueInfo);
         updatedBacklogs.push(backlog);
@@ -174,6 +187,6 @@ jQuery.noConflict();
       "app.record.create.change.repo",
       "app.record.edit.change.repo",
     ],
-    (event) => updateEvent(event)
+    (event: Event) => updateEvent(event)
   );
 })(jQuery, kintone.$PLUGIN_ID);
