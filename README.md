@@ -1,6 +1,6 @@
 # DX Sprint Backlog
 
-A plugin for getting zendhub data.
+A plugin for getting Zendhub or Github Project data.
 
 It's only for the "DX Sprint Backlog" app. Not available in other apps.
 
@@ -10,7 +10,7 @@ Manual setting for below fields:
 
 ### Table
 
-`fieldCode`: `sprint_pbis`
+`fieldCode`: `Table`
 
 ### Repo
 
@@ -53,6 +53,14 @@ Manual setting for below fields:
 `type`: `link`
 
 `fieldCode`: `pbi_link`
+
+### Achieved Storypoint
+
+`type`: `Calculated`
+
+`fieldCode`: `pbi_acheived_storypoint`
+
+`Formula`: `IF(pbi_status="🎉 Done",pbi_storypoint,0)`
 
 ## LICENSE
 

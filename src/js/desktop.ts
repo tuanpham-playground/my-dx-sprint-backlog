@@ -1,5 +1,7 @@
-// You can use the ESModules syntax and @kintone/rest-api-client without additional settings.
-// import { KintoneRestAPIClient } from "@kintone/rest-api-client";
+import type { Issue } from "./types";
+import { lookupIssue as lookupIssueGithub } from "./github";
+import { lookupIssue as lookupIssueZenhub } from "./zenhub";
+import { RESOURCE_TYPE } from "./constants";
 
 // @ts-expect-error
 jQuery.noConflict();
@@ -12,169 +14,131 @@ jQuery.noConflict();
     return false;
   }
 
-  const CONFIG_API_URL = CONFIG.apiUrl;
-  const CONFIG_API_TOKEN = CONFIG.apiToken;
-  const CONFIG_WORKSPACE_ID = CONFIG.workspaceId;
-  const CONFIG_REPO_CONNECTION = JSON.parse(CONFIG.repositoriesConnection);
+  const isAutoUpdateStatus = CONFIG.autoUpdateStatus === "1";
 
   interface Event {
     appId: number;
     recordId: number;
     record: kintone.types.SavedSprintBacklog;
+    changes: any;
   }
 
   interface Record {
     record: kintone.types.SavedSprintBacklog;
   }
 
-  type Unpacked<T> = T extends (infer U)[] ? U : T;
-  type Backlog = Unpacked<kintone.types.SprintBacklog["Table"]["value"]>;
+  type Unpacked<T> = T extends Array<infer U> ? U : T;
+  type Backlog = Unpacked<kintone.types.Backlog>;
 
-  const makeGraphQLRequest = (url: string, headers: object, data: string) => {
-    return $.ajax({
-      url: url,
-      method: "post",
-      headers: headers,
-      data: data,
-    });
-  };
+  const lookupIssue = (backlog: Backlog): Promise<Issue | undefined> => {
+    const repoName = backlog.value.repo.value;
+    const issueKey = parseInt(backlog.value.issue.value, 10);
+    if (!repoName || !issueKey) {
+      return Promise.resolve(undefined);
+    }
 
-  const getRepoConnectionId = (repoName: string): number => {
-    const repoConnection = CONFIG_REPO_CONNECTION.find(
-      (repo: { name: string; ghId: number }) => repoName === repo.name
-    );
-    return repoConnection ? repoConnection.ghId : 0;
-  };
+    if (CONFIG.type === RESOURCE_TYPE.GITHUB) {
+      return lookupIssueGithub(CONFIG, repoName, issueKey);
+    } else if (CONFIG.type === RESOURCE_TYPE.ZENHUB) {
+      return lookupIssueZenhub(CONFIG, repoName, issueKey);
+    }
 
-  const makeRequestInfo = (
-    repoId: number,
-    issue: number
-  ): { headers: object; data: string } => {
-    const headers = {
-      Authorization: `Bearer ${CONFIG_API_TOKEN}`,
-      "Content-Type": "application/json",
-    };
-    const data = JSON.stringify({
-      query: `query getIssueInfo($repositoryGhId: Int!, $issueNumber: Int!) {
-        issueByInfo(repositoryGhId: $repositoryGhId, issueNumber: $issueNumber) {
-          id
-          repository {
-            id
-            ghId
-          }
-          number
-          title
-          htmlUrl
-          state
-          estimate {
-            value
-          }
-          pipelineIssues {
-            nodes {
-              pipeline {
-                name
-              } 
-            }
-          }
-        }
-      }`,
-      variables: {
-        repositoryGhId: repoId,
-        issueNumber: issue,
-      },
-    });
-
-    return {
-      headers,
-      data,
-    };
-  };
-
-  const lookupIssue = (event: Event) => {
-    const record = event.record;
-    const backlogs = record["Table"].value;
-    const requests: Promise<any>[] = [];
-    backlogs.forEach((backlog) => {
-      const repoName: kintone.fieldTypes.SingleLineText["value"] = backlog.value.repo.value;
-      const issueKey = parseInt(backlog.value.issue.value, 10);
-      if (!repoName || !issueKey) {
-        requests.push(Promise.resolve());
-        return;
-      }
-
-      const repoId = getRepoConnectionId(repoName);
-      const { headers, data } = makeRequestInfo(repoId, issueKey);
-      const request = makeGraphQLRequest(CONFIG_API_URL, headers, data);
-      requests.push(request);
-    });
-
-    return requests;
-  };
-
-  const convertPipelineToStatus = (pipeline: string): string => {
-    const statusMapping: { [pipeline: string]: string } = {
-      ready: "🔜 Ready",
-      icebox: "🔜 Ready",
-      "new issues": "🔜 Ready",
-      "in progress": "🏃 In Progress",
-      "in review": "🏃 In Progress",
-      feedback: "🏃 In Progress",
-      closed: "🎉 Done",
-    };
-
-    return statusMapping[pipeline.toLowerCase()];
+    return Promise.reject();
   };
 
   const clearValue = (targetBacklog: Backlog) => {
     const backlog = targetBacklog;
-    backlog.value.pbi_title.value = '';
-    backlog.value.pbi_link.value = '';
-    backlog.value.pbi_storypoint.value = '';
-    backlog.value.pbi_status.value = convertPipelineToStatus("ready");
+    backlog.value.pbi_title.value = "";
+    backlog.value.pbi_link.value = "";
+    backlog.value.pbi_storypoint.value = "";
+    if (isAutoUpdateStatus) {
+      backlog.value.pbi_status.value = "";
+    }
 
     return backlog;
   };
 
-  const setValue = (targetBacklog: Backlog, issueInfo: any) => {
-    const backlog = targetBacklog;
-    if (!issueInfo) {
-      return backlog;
+  const setValue = (targetBacklog: Backlog, targetIssue: Issue): Backlog => {
+    if (!targetIssue) {
+      return targetBacklog;
     }
 
-    if (!backlog.value.repo.value || !backlog.value.issue.value) {
-      return backlog;
+    if (!targetBacklog.value.repo.value || !targetBacklog.value.issue.value) {
+      return targetBacklog;
     }
 
-    backlog.value.pbi_title.value = issueInfo.title;
-    backlog.value.pbi_link.value = issueInfo.htmlUrl;
-    if (issueInfo.estimate) {
-      backlog.value.pbi_storypoint.value = issueInfo.estimate.value;
-    }
-
-    if (issueInfo.state === "CLOSED") {
-      backlog.value.pbi_status.value = convertPipelineToStatus(issueInfo.state);
-    } else {
-      backlog.value.pbi_status.value = convertPipelineToStatus(
-        issueInfo.pipelineIssues.nodes[0].pipeline.name
-      );
+    const backlog = clearValue(targetBacklog);
+    backlog.value.pbi_title.value = targetIssue.title;
+    backlog.value.pbi_link.value = targetIssue.url;
+    backlog.value.pbi_storypoint.value =
+      targetIssue.storyPoint ?? backlog.value.pbi_storypoint.value;
+    if (isAutoUpdateStatus) {
+      backlog.value.pbi_status.value =
+        targetIssue.status ?? backlog.value.pbi_status.value;
     }
 
     return backlog;
+  };
+
+  const getChangedRowIndexById = (
+    changedRowId: number,
+    event: Event
+  ): number => {
+    return event.record.Table.value.findIndex((element) => {
+      return element.id === changedRowId;
+    });
+  };
+
+  const getChangedRowIndexByValue = (
+    changedValue: Backlog,
+    event: Event
+  ): number => {
+    return event.record.Table.value.findIndex((element) => {
+      const value = element.value;
+      return (
+        changedValue.value.issue.value === value.issue.value &&
+        changedValue.value.repo.value === value.repo.value
+      );
+    });
+  };
+
+  const getChangedRow = (
+    event: Event
+  ): { index: number; backlog?: Backlog } => {
+    const changedValue: Backlog = event.changes.row;
+    if (!changedValue.value.issue.value || !changedValue.value.repo.value) {
+      return { index: -1 };
+    }
+
+    let changedRowIndex;
+    if (changedValue.id) {
+      changedRowIndex = getChangedRowIndexById(changedValue.id, event);
+    } else {
+      changedRowIndex = getChangedRowIndexByValue(changedValue, event);
+    }
+
+    return {
+      index: changedRowIndex,
+      backlog: event.record.Table.value[changedRowIndex],
+    };
   };
 
   const updateEvent = (event: Event) => {
-    kintone.Promise.all(lookupIssue(event)).then( (resp) => {
-      const record: Record = kintone.app.record.get();
-      const backlogs = record.record.Table.value;
-      const updatedBacklogs = [];
-      for (let index = 0; index < backlogs.length; index++) {
-        const issueInfo = resp[index]?.data?.issueByInfo;
-        let backlog: Backlog = backlogs[index];
-        backlog = clearValue(backlog);
-        backlog = setValue(backlog, issueInfo);
-        updatedBacklogs.push(backlog);
+    const changedRow = getChangedRow(event);
+    if (changedRow.index === -1 || !changedRow.backlog) {
+      return;
+    }
+
+    lookupIssue(changedRow.backlog).then((resp) => {
+      if (!resp) {
+        return;
       }
-      record.record.Table.value = updatedBacklogs;
+      const record: Record = kintone.app.record.get();
+      const currentBacklog = record.record.Table.value[changedRow.index];
+      record.record.Table.value[changedRow.index] = setValue(
+        currentBacklog,
+        resp
+      );
 
       kintone.app.record.set(record);
     });

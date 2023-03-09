@@ -1,34 +1,68 @@
 <section class="settings">
   <h2 class="settings-heading">Settings for dx-sprint-backlog</h2>
-  <h3 class="settings-heading">Zenhub Authorization</h3>
   <form class="js-submit-settings">
+    <div class="kintoneplugin-row">
+      <div class="kintoneplugin-label">Resource Type<span class="kintoneplugin-require">*</span></div>
+      <div class="kintoneplugin-select-outer">
+        <div class="kintoneplugin-select" id="type-setfield">
+          <select name="type" id="resource-type">
+            <option value="github">Github Project</option>
+            <option value="zenhub">Zenhub</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="js-settings-resource" id="zenhub-settings">
+      <h3 class="settings-heading">Zenhub Authorization</h3>
+      <p class="kintoneplugin-row">
+        <label for="zenhub-url-fieldInput">
+          Zenhub’s GraphQL API URL (<a target="_blank" href="https://developers.zenhub.com/graphql-api-docs/getting-started/index.html#endpoint">Ref</a>) <span style="color: red">*</span>:
+          <input type="text" class="js-zenhub-api-url kintoneplugin-input-text" id="zenhub-url-fieldInput">
+        </label>
+      </p>
+      <p class="kintoneplugin-row">
+        <label for="zenhub-apiToken-fieldInput">
+          Zenhub’s GraphQL API Token<span style="color: red">*</span>:
+          <input type="text" class="js-zenhub-api-token kintoneplugin-input-text" id="zenhub-apiToken-fieldInput">
+        </label>
+      </p>
+      <p class="kintoneplugin-row">
+        <label for="workspace-fieldInput">
+          Zenhub workspace name<span style="color: red">*</span>:
+          <input type="text" class="js-zenhub-workspace-name kintoneplugin-input-text" id="workspace-fieldInput">
+          <a href="javascript:void(0)" class="js-get-workspace">>>> Get workspace info</a>
+        </label>
+      </p>
+      <p class="kintoneplugin-row">
+        <label for="workspaceId-fieldInput">
+          Zenhub workspace id<span style="color: red">*</span>:
+          <input type="text" class="js-zenhub-workspace-id kintoneplugin-input-text" readonly="true" id="workspaceId-fieldInput">
+        </label>
+      </p>
+      <h3 class="settings-heading">Repositories Connection</h3>
+      <p class="kintoneplugin-row js-zendhub-repositories-connection-area">
+      </p>
+    </div>
+    <div class="js-settings-resource" id="github-settings">
+      <h3 class="settings-heading">Github Authorization</h3>
+      <p class="kintoneplugin-row">
+        <label for="github-url-fieldInput">
+          Github’s GraphQL API URL (<a target="_blank" href="https://developers.zenhub.com/graphql-api-docs/getting-started/index.html#endpoint">Ref</a>) <span style="color: red">*</span>:
+          <input type="text" class="js-github-api-url kintoneplugin-input-text" id="github-url-fieldInput">
+        </label>
+      </p>
+      <p class="kintoneplugin-row">
+        <label for="github-apiToken-fieldInput">
+          Github Personal Access Token<span style="color: red">*</span>:
+          <input type="text" class="js-github-api-token kintoneplugin-input-text" id="github-apiToken-fieldInput">
+        </label>
+      </p>
+    </div>
     <p class="kintoneplugin-row">
-      <label for="url">
-        Zenhub’s GraphQL API URL (<a target="_blank" href="https://developers.zenhub.com/graphql-api-docs/getting-started/index.html#endpoint">Ref</a>) <span style="color: red">*</span>:
-        <input type="text" class="js-zenhub-api-url kintoneplugin-input-text">
-      </label>
-    </p>
-    <p class="kintoneplugin-row">
-      <label for="api_token">
-        Zenhub’s GraphQL API Token<span style="color: red">*</span>:
-        <input type="text" class="js-zenhub-api-token kintoneplugin-input-text">
-      </label>
-    </p>
-    <p class="kintoneplugin-row">
-      <label for="workspace">
-        Zenhub workspace name<span style="color: red">*</span>:
-        <input type="text" class="js-zenhub-workspace-name kintoneplugin-input-text">
-        <a href="javascript:void(0)" class="js-get-workspace">>>> Get workspace info</a>
-      </label>
-    </p>
-    <p class="kintoneplugin-row">
-      <label for="workspace">
-        Zenhub workspace id<span style="color: red">*</span>:
-        <input type="text" class="js-zenhub-workspace-id kintoneplugin-input-text" readonly="true">
-      </label>
-    </p>
-    <h3 class="settings-heading">Repositories Connection</h3>
-    <p class="kintoneplugin-row js-zendhub-repositories-connection-area">
+      <span class="kintoneplugin-input-checkbox-item">
+          <input type="checkbox" name="autoUpdateStatus" value="1" id="js-auto-update-status" checked>
+          <label for="js-auto-update-status">Auto update status field</label>
+      </span>
     </p>
     <p class="kintoneplugin-row">
       <input type="hidden" class="js-zendhub-repositories-connection">

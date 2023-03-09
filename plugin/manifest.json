@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "version": 1,
+  "version": "1.1",
   "type": "APP",
   "desktop": {
     "js": [
@@ -27,13 +27,13 @@
       "css/51-modern-default.css"
     ],
     "required_params": [
-      "apiUrl", "apiToken", "workspaceName", "workspaceId"
+      "apiUrl", "apiToken"
     ]
   },
   "name": {
     "en": "Kintone DX Sprint Backlog"
   },
   "description": {
-    "en": "This plugin is used to get data from Zenhub.\n It's only for the \"DX Sprint Backlog\" app.\nNot available in other apps."
+    "en": "This plugin is used to get data from Zenhub or Github Project.\n It's only for the \"DX Sprint Backlog\" app.\nNot available in other apps."
   }
 }
