@@ -46,6 +46,22 @@ jQuery.noConflict();
     return Promise.reject();
   };
 
+  const lookupIssuesByNumber = async (
+    repoName: string,
+    issueNumber: number
+  ): Promise<Issue | undefined> => {
+    if (!repoName || !issueNumber) {
+      return Promise.resolve(undefined);
+    }
+
+    if (CONFIG.type === RESOURCE_TYPE.GITHUB) {
+      // eslint-disable-next-line no-return-await
+      return await lookupIssueGithub(CONFIG, repoName, issueNumber);
+    }
+
+    return Promise.reject();
+  };
+
   const clearValue = (targetBacklog: Backlog) => {
     const backlog = targetBacklog;
     backlog.value.pbi_title.value = "";
@@ -143,6 +159,65 @@ jQuery.noConflict();
       kintone.app.record.set(record);
     });
   };
+
+  const updateStatus = (event: Event) => {
+    const btn = document.createElement("button");
+    btn.setAttribute("class", "kintoneplugin-button-normal");
+    btn.innerHTML = "Update Status";
+    const UPDATE_BTN_ID = "update_btn";
+    kintone.app.record.getSpaceElement(UPDATE_BTN_ID)!.appendChild(btn);
+
+    btn.onclick = function () {
+      const issuesInfo = getIssuesInfo();
+      if (!issuesInfo) {
+        return;
+      }
+
+      const issues: Issue[] = [];
+      issuesInfo.forEach(
+        (
+          issueInfo: { repoName: string; issueNumber: number },
+          index: number
+        ) => {
+          lookupIssuesByNumber(issueInfo.repoName, issueInfo.issueNumber).then(
+            (resp) => {
+              if (!resp) {
+                return;
+              }
+
+              issues.push(resp);
+              const record: Record = kintone.app.record.get();
+              const currentBacklog = record.record.Table.value[index];
+              record.record.Table.value[index] = setValue(currentBacklog, resp);
+              kintone.app.record.set(record);
+            }
+          );
+        }
+      );
+    };
+
+    return event;
+  };
+
+  const getIssuesInfo = () => {
+    return kintone.app.record
+      .get()
+      .record.Table.value.map(
+        (item: {
+          value: { repo: { value: string }; issue: { value: number } };
+        }) => {
+          return {
+            repoName: item.value.repo.value,
+            issueNumber: +item.value.issue.value,
+          };
+        }
+      );
+  };
+
+  kintone.events.on(
+    ["app.record.create.show", "app.record.edit.show"],
+    (event: Event) => updateStatus(event)
+  );
 
   return kintone.events.on(
     [

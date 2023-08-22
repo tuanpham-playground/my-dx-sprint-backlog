@@ -27,7 +27,7 @@
       "css/51-modern-default.css"
     ],
     "required_params": [
-      "apiUrl", "apiToken"
+      "githubApiUrl", "githubApiToken"
     ]
   },
   "name": {
