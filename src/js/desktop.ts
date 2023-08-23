@@ -55,8 +55,7 @@ jQuery.noConflict();
     }
 
     if (CONFIG.type === RESOURCE_TYPE.GITHUB) {
-      // eslint-disable-next-line no-return-await
-      return await lookupIssueGithub(CONFIG, repoName, issueNumber);
+      return lookupIssueGithub(CONFIG, repoName, issueNumber);
     }
 
     return Promise.reject();
@@ -173,25 +172,25 @@ jQuery.noConflict();
         return;
       }
 
-      const issues: Issue[] = [];
+      const issues = [];
       issuesInfo.forEach(
-        (
+        async (
           issueInfo: { repoName: string; issueNumber: number },
           index: number
         ) => {
-          lookupIssuesByNumber(issueInfo.repoName, issueInfo.issueNumber).then(
-            (resp) => {
-              if (!resp) {
-                return;
-              }
-
-              issues.push(resp);
-              const record: Record = kintone.app.record.get();
-              const currentBacklog = record.record.Table.value[index];
-              record.record.Table.value[index] = setValue(currentBacklog, resp);
-              kintone.app.record.set(record);
-            }
+          const response = await lookupIssuesByNumber(
+            issueInfo.repoName,
+            issueInfo.issueNumber
           );
+          if (!response) {
+            return;
+          }
+
+          issues.push(response);
+          const record: Record = kintone.app.record.get();
+          const currentBacklog = record.record.Table.value[index];
+          record.record.Table.value[index] = setValue(currentBacklog, response);
+          kintone.app.record.set(record);
         }
       );
     };
