@@ -62,6 +62,20 @@ Manual setting for below fields:
 
 `Formula`: `IF(pbi_status="🎉 Done",pbi_storypoint,0)`
 
+
+## Commands for building, packaging, and deploying
+```shell
+# build production
+$ npm run build:prod
+
+# packaging
+$  kintone-plugin-packer ./plugin --out my_plugin.zip --ppk private.ppk
+
+# deploying
+$ kintone-plugin-uploader --base-url https://sub_domain.domain.com --username <username> --password <password> /<path_to_plugin_repo>/my_plugin.zip
+```
+
+
 ## LICENSE
 
 - [MIT](https://github.com/kintone/cli-kintone/blob/main/LICENSE)
