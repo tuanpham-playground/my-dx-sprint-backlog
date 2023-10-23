@@ -159,8 +159,14 @@ const getFieldValues = (
 };
 
 const isCanceled = (arr: any, target: string): boolean => {
+  debugger;
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i].name && arr[i].name.includes(target)) {
+    const isExist =
+      arr[i].field &&
+      arr[i].field.name === "Status" &&
+      arr[i].name &&
+      arr[i].name.includes(target);
+    if (isExist) {
       return true;
     }
   }
