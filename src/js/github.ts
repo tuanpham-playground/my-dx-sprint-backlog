@@ -13,7 +13,6 @@ export const lookupIssue = (
       if (!resp.data) {
         return undefined;
       }
-
       const issueInfo = resp.data.repository.issue;
       if (!issueInfo) {
         return undefined;
@@ -115,8 +114,14 @@ const convertToIssue = (targetIssue: any): Issue => {
     issueInfo.storyPoint = storyPoint.value;
   }
 
+  const isCanceledStatus = isCanceled(
+    targetIssue.projectItems.nodes[0].fieldValues.nodes,
+    "Canceled"
+  );
   if (targetIssue.state === "CLOSED") {
-    issueInfo.status = convertToStatusValue(targetIssue.state);
+    issueInfo.status = isCanceledStatus
+      ? "⛔️ Canceled"
+      : convertToStatusValue(targetIssue.state);
   } else {
     const status = fieldValues.find(
       (field) => field.name.toLowerCase() === "status"
@@ -151,4 +156,19 @@ const getFieldValues = (
       }
       return { name, value };
     });
+};
+
+const isCanceled = (arr: any, target: string): boolean => {
+  debugger;
+  for (let i = 0; i < arr.length; i++) {
+    const isExist =
+      arr[i].field &&
+      arr[i].field.name === "Status" &&
+      arr[i].name &&
+      arr[i].name.includes(target);
+    if (isExist) {
+      return true;
+    }
+  }
+  return false;
 };
