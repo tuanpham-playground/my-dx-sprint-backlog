@@ -79,10 +79,7 @@ const makeRequestBody = (repoName: string, issue: number): string => {
   });
 };
 
-const convertToStatusValue = (
-  value: string,
-  isCanceled: boolean = false
-): string => {
+const convertToStatusValue = (value: string): string => {
   const statusMapping: { [value: string]: string } = {
     ready: "🔜 Ready",
     icebox: "🔜 Ready",
@@ -96,16 +93,11 @@ const convertToStatusValue = (
   return Object.keys(statusMapping)
     .filter((key) => value.toLowerCase().includes(key))
     .reduce((cur, key) => {
-      return isCanceled ? "⛔️ Canceled" : statusMapping[key];
+      return statusMapping[key];
     }, "");
 };
 
 const convertToIssue = (targetIssue: any): Issue => {
-  console.log("targetIssue", targetIssue);
-  const isCanceled = recursiveSearch(
-    targetIssue.projectItems.nodes[0].fieldValues.nodes,
-    "Canceled"
-  );
   const issueInfo: Issue = {
     title: targetIssue.title,
     url: targetIssue.url,
@@ -122,8 +114,14 @@ const convertToIssue = (targetIssue: any): Issue => {
     issueInfo.storyPoint = storyPoint.value;
   }
 
+  const isCanceledStatus = isCanceled(
+    targetIssue.projectItems.nodes[0].fieldValues.nodes,
+    "Canceled"
+  );
   if (targetIssue.state === "CLOSED") {
-    issueInfo.status = convertToStatusValue(targetIssue.state, isCanceled);
+    issueInfo.status = isCanceledStatus
+      ? "⛔️ Canceled"
+      : convertToStatusValue(targetIssue.state);
   } else {
     const status = fieldValues.find(
       (field) => field.name.toLowerCase() === "status"
@@ -160,16 +158,10 @@ const getFieldValues = (
     });
 };
 
-const recursiveSearch = (arr: any, target: string): boolean => {
+const isCanceled = (arr: any, target: string): boolean => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].name && arr[i].name.includes(target)) {
       return true;
-    }
-    if (arr[i].children) {
-      const result = recursiveSearch(arr[i].children, target);
-      if (result) {
-        return true;
-      }
     }
   }
   return false;
