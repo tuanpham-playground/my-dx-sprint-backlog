@@ -159,7 +159,6 @@ const getFieldValues = (
 };
 
 const isCanceled = (arr: any, target: string): boolean => {
-  debugger;
   for (let i = 0; i < arr.length; i++) {
     const isExist =
       arr[i].field &&

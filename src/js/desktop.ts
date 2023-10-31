@@ -164,7 +164,7 @@ jQuery.noConflict();
     btn.setAttribute("class", "kintoneplugin-button-normal");
     btn.innerHTML = "Update Status";
     const UPDATE_BTN_ID = "update_btn";
-    kintone.app.record.getSpaceElement(UPDATE_BTN_ID)!.appendChild(btn);
+    kintone.app.record.getSpaceElement(UPDATE_BTN_ID).appendChild(btn);
 
     btn.onclick = function () {
       const issuesInfo = getIssuesInfo();
