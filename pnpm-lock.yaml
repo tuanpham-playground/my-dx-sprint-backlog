@@ -41,7 +41,7 @@ devDependencies:
     specifier: ^6.0.39
     version: 6.0.39(webpack@5.89.0)
   babel-loader:
-    specifier: ^8.2.5
+    specifier: ^8.3.0
     version: 8.3.0(@babel/core@7.23.3)(webpack@5.89.0)
   cross-env:
     specifier: ^7.0.3
