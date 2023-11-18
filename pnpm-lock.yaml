@@ -38,7 +38,7 @@ devDependencies:
     specifier: ^7.1.10
     version: 7.1.10(typescript@4.9.5)
   '@kintone/webpack-plugin-kintone-plugin':
-    specifier: ^6.0.16
+    specifier: ^6.0.39
     version: 6.0.39(webpack@5.89.0)
   babel-loader:
     specifier: ^8.2.5

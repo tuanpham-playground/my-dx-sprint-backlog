@@ -25,7 +25,7 @@
     "@kintone/dts-gen": "^6.1.33",
     "@kintone/plugin-uploader": "^7.1.10",
     "@kintone/plugin-packer": "^7.1.0",
-    "@kintone/webpack-plugin-kintone-plugin": "^6.0.16",
+    "@kintone/webpack-plugin-kintone-plugin": "^6.0.39",
     "babel-loader": "^8.2.5",
     "cross-env": "^7.0.3",
     "eslint": "^8.25.0",
