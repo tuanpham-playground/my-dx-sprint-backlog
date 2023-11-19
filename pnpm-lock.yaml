@@ -9,8 +9,8 @@ dependencies:
     specifier: ^3.3.15
     version: 3.3.15
   core-js:
-    specifier: ^3.25.5
-    version: 3.33.1
+    specifier: ^3.33.3
+    version: 3.33.3
 
 devDependencies:
   '@babel/core':
@@ -1622,7 +1622,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       axios: 0.27.2
-      core-js: 3.33.1
+      core-js: 3.33.3
       form-data: 4.0.0
       js-base64: 3.7.5
       mime: 3.0.0
@@ -2553,8 +2553,8 @@ packages:
       browserslist: 4.22.1
     dev: true
 
-  /core-js@3.33.1:
-    resolution: {integrity: sha512-qVSq3s+d4+GsqN0teRCJtM6tdEEXyWxjzbhVrCHmBS5ZTM0FS2MOS0D13dUXAWDUN6a+lHI/N1hF9Ytz6iLl9Q==}
+  /core-js@3.33.3:
+    resolution: {integrity: sha512-lo0kOocUlLKmm6kv/FswQL8zbkH7mVsLJ/FULClOhv8WRVmKLVcs6XPNQAzstfeJTCHMyButEwG+z1kHxHoDZw==}
     requiresBuild: true
     dev: false
 
