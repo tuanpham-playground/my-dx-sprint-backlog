@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@kintone/rest-api-client':
-    specifier: ^3.1.16
+    specifier: ^3.3.15
     version: 3.3.15
   core-js:
     specifier: ^3.25.5
