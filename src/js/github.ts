@@ -86,6 +86,8 @@ const convertToStatusValue = (value: string): string => {
     new: "🔜 Ready",
     "in progress": "🏃 In Progress",
     "in review": "🏃 In Progress",
+    "in testing": "🏃 In Progress",
+    "in ac check": "🏃 In Progress",
     done: "🎉 Done",
     closed: "🎉 Done",
   };
