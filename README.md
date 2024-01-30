@@ -1,5 +1,5 @@
-# DX Sprint Backlog
-
+# My DX Sprint Backlog
+# This repo for testing DX Sprint Backlog repo (dx-sprint-backlog)
 A plugin for getting Zendhub or Github Project data.
 
 It's only for the "DX Sprint Backlog" app. Not available in other apps.

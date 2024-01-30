@@ -1,5 +1,5 @@
 {
-  "name": "dx-sprint-backlog",
+  "name": "my-dx-sprint-backlog",
   "version": "1.2.2",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
