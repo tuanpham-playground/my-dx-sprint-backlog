@@ -1,5 +1,23 @@
 # Changelog
 
+## [5.0.0](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v4.0.2...my-dx-sprint-backlog-v5.0.0) (2024-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* config ts 4 ([#27](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/27))
+
+### Bug Fixes
+
+* config ts 4 ([#26](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/26)) ([7f0a175](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/7f0a1754705112df3e6a584b3205fc84ff2d5602))
+* config ts 4 ([#27](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/27)) ([6173f44](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/6173f44e9280d4535f0c31e5523912b13b9b2281))
+* fix bug 4 ([#23](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/23)) ([8261dc1](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/8261dc19c159dd2547312d92543b713dbfd1f415))
+* fix bug 5 ([#29](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/29)) ([e4cd734](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/e4cd734a495c37b63ec0ffdedd93aadef78cfbca))
+* fix bug 6 ([#30](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/30)) ([227b667](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/227b6674647d2db80fdf330a30819d98ee51ab2d))
+* fix bug 6 ([#31](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/31)) ([3340777](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/334077711f7cf67907bd18dde9e9aa64f6535ea1))
+* fix bug 8 ([#32](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/32)) ([8ed5065](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/8ed5065b49057a8e4edffaec8d10de852b9ba766))
+* fix bug 9 ([#33](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/33)) ([796d0e9](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/796d0e954be344438cabd76bf1b1f9408a3c2253))
+
 ## [4.0.2](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v4.0.1...my-dx-sprint-backlog-v4.0.2) (2024-02-01)
 
 
