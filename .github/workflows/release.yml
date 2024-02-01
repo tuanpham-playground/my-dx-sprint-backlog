@@ -26,6 +26,8 @@ jobs:
         id: release
         with:
           token: ${{ steps.create-iat.outputs.token }}
+      - run: |
+          pnpm syncVersion
 
   update_manifest:
     name: Update manifest.json
@@ -78,9 +80,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm syncVersion
+        run: pnpm install --frozen-lockfile
       - run: pnpm build
       - name: Upload executables
         env:
