@@ -26,8 +26,6 @@ jobs:
         id: release
         with:
           token: ${{ steps.create-iat.outputs.token }}
-      - run: |
-          pnpm syncVersion
 
   update_manifest:
     name: Update manifest.json
