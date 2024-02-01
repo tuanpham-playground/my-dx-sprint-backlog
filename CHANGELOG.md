@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v3.0.0...my-dx-sprint-backlog-v4.0.0) (2024-02-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* update axios to 16 ([#15](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/15))
+
+### Miscellaneous Chores
+
+* update axios to 16 ([#15](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/15)) ([61f4d07](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/61f4d074af3cfe0841fa7baa82ff2f10a9ceb45f))
+
 ## [3.0.0](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v2.0.0...my-dx-sprint-backlog-v3.0.0) (2024-02-01)
 
 
