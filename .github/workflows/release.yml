@@ -56,12 +56,7 @@ jobs:
       - name: Upload executables
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-<<<<<<< Updated upstream
-        run: gh release upload ${{ steps.release.outputs.tag_name }} ./artifact/${{ steps.release.outputs.tag_name }}.zip
-
-=======
         run: |
           VERSION=$(jq -r '.version' ./package.json)
           gh release upload ${{ needs.release.outputs.tag_name }} \
-            ${GITHUB_WORKSPACE}/artifacts/plugin.zip \
->>>>>>> Stashed changes
+            ./dist/plugin.zip \
