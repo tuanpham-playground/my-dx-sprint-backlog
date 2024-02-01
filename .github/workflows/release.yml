@@ -15,7 +15,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
-      pr: ${{ steps.release.outputs.pr }}
+      release_branch: ${{ steps.release.outputs.release_branch }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v1
@@ -54,7 +54,7 @@ jobs:
 
       - name: Update Manifest Version
         run: |
-          echo "=========Pushing changes to: ${{  steps.release.outputs.pr }} ====="
+          echo "=========Pushing changes to: ${{  steps.release.outputs.release_branch }} ====="
           pnpm syncVersion
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
