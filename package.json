@@ -8,6 +8,7 @@
     "develop": "pnpm run build -- --watch",
     "build": "cross-env NODE_ENV=development webpack",
     "build:prod": "cross-env NODE_ENV=production webpack",
+    "syncVersion": "node scripts/update-manifest-json.js",
     "dts-gen": "kintone-dts-gen",
     "lint": "eslint src",
     "upload": "kintone-plugin-uploader dist/plugin.zip --watch --waiting-dialog-ms 3000"

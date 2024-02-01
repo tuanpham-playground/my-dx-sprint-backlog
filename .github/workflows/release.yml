@@ -26,6 +26,8 @@ jobs:
         id: release
         with:
           token: ${{ steps.create-iat.outputs.token }}
+      - run: |
+          pnpm syncVersion
 
   upload:
     name: Upload executables
