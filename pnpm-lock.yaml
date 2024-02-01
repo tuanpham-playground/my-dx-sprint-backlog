@@ -9,7 +9,7 @@ dependencies:
     specifier: ^3.3.15
     version: 3.3.15
   axios:
-    specifier: ^1.5
+    specifier: ^1.6
     version: 1.6.7
   core-js:
     specifier: ^3.33.3
