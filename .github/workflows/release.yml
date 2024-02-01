@@ -46,6 +46,11 @@ jobs:
           node-version: "18"
           cache: "pnpm"
 
+      - name: Configure npm user
+        run: npm config set "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Update Manifest Version
         run: |
           pnpm syncVersion
