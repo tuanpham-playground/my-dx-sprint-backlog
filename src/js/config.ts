@@ -10,7 +10,7 @@ jQuery.noConflict();
 
 (($, PLUGIN_ID) => {
   "use strict";
-  // fix bug 3g
+  // fix bug 4
   const CONF = kintone.plugin.app.getConfig(PLUGIN_ID);
 
   const saveSettings = (config: object) => {
