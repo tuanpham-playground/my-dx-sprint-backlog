@@ -55,6 +55,34 @@ jobs:
           git push origin ${{ github.ref_name }}
 
 
+  update_manifest:
+    name: Update manifest.json
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      # setup ruby environment before running jonabc/setup-licensed
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "pnpm"
+
+      - name: Update Manifest Version
+        run: |
+          pnpm syncVersion
+          git add plugin/manifest.json
+          git commit -m "chore: update manifest version"
+          echo "=========Pushing changes to ${{ github.ref_name }}"
+          git push origin ${{ github.ref_name }}
+
+
   upload:
     name: Upload executables
     permissions:
