@@ -15,6 +15,7 @@ jobs:
     name: Create release
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v1
@@ -26,9 +27,41 @@ jobs:
         id: release
         with:
           token: ${{ steps.create-iat.outputs.token }}
-      - name: Upload Release Artifact
-        if: ${{ steps.release.outputs.release_created }}
+
+  upload:
+    name: Upload executables
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
+    steps:
+      # setup ruby environment before running jonabc/setup-licensed
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - run: pnpm build:artifacts
+      - name: Upload executables
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+<<<<<<< Updated upstream
         run: gh release upload ${{ steps.release.outputs.tag_name }} ./artifact/${{ steps.release.outputs.tag_name }}.zip
 
+=======
+        run: |
+          VERSION=$(jq -r '.version' ./package.json)
+          gh release upload ${{ needs.release.outputs.tag_name }} \
+            ${GITHUB_WORKSPACE}/artifacts/plugin.zip \
+>>>>>>> Stashed changes
