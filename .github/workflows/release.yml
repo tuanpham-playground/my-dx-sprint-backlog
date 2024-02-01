@@ -15,6 +15,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
+      release_branch: ${{ steps.release.outputs.release_branch }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v1
@@ -53,12 +54,11 @@ jobs:
 
       - name: Update Manifest Version
         run: |
-          echo "=========Pushing changes to ${{ github.ref_name }}"
+          echo "=========Pushing changes to: ${{  steps.release.outputs.release_branch }} ====="
           pnpm syncVersion
           git add plugin/manifest.json
           git commit -m "chore: update manifest version"
-          echo "=========Pushing changes to ${{ github.ref_name }}"
-          git push origin ${{ github.ref_name }}
+          git push origin ${{ steps.release.outputs.release_branch }}
 
   upload:
     name: Upload executables
@@ -90,5 +90,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(jq -r '.version' ./package.json)
-          gh release upload ${{ needs.release.outputs.tag_name }} \
+          gh release upload ${{ steps.release.outputs.tag_name }} \
             ./dist/plugin.zip \
