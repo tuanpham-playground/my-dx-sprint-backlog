@@ -14,7 +14,6 @@ const manifestContent = fs.readFileSync(manifestFilePath, "utf8");
 const manifestJson = JSON.parse(manifestContent);
 manifestJson.version = updatedVersion;
 
-console.log('manifestJson.version:',manifestJson.version);
 fs.writeFileSync(
   manifestFilePath,
   JSON.stringify(manifestJson, null, 2),
