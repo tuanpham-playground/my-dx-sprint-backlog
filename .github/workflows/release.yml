@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - main
+      - "fix/**"
 
 permissions:
   contents: write
@@ -57,20 +58,12 @@ jobs:
         run: npm config set "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          HEAD_BRANCH_NAME: ${{ fromJSON(needs.release.outputs.pr).headBranchName) }}
 
       - name: Update Manifest Version
         run: |
           echo "=========Pushing changes to=========="
-          echo ${{ needs.release.outputs.release_created }}
-          echo ${{ needs.release.outputs.releases_created }}
-          echo ${{ needs.release.outputs.release_branch }}
-          echo ${{ needs.release.outputs.paths_released }}
-          echo ${{ needs.release.outputs.tag_name }}
-          echo ${{ needs.release.outputs.releases_created }}
-          echo ${{ needs.release.outputs.prs_created }}
-          echo ${{ needs.release.outputs.pr }}
-          echo ${{ needs.release.outputs.prs }}
-          echo ${{ steps.release.outputs.upload_url }}
+          ECHO "$HEAD_BRANCH_NAME"
           echo "@@@@@@@"
           pnpm syncVersion
           git config user.name github-actions[bot]
