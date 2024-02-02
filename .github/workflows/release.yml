@@ -59,7 +59,15 @@ jobs:
 
       - name: Update Manifest Version
         run: |
-          echo "=========Pushing changes to: ${{  steps.release.outputs.release_branch }} ====="
+          echo "=========Pushing changes to=========="
+          echo ${{ steps.release.outputs.release_branch }}
+          echo ${{ steps.release.outputs.tag_name }}
+          echo ${{ steps.release.outputs.releases_created }}
+          echo ${{ steps.release.outputs.prs_created }}
+          echo ${{ steps.release.outputs.pr }}
+          echo ${{ steps.release.outputs.prs }}
+          echo ${{ steps.release.outputs.upload_url }}
+          echo "@@@@@@@"
           pnpm syncVersion
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
