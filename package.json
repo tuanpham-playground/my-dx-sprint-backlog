@@ -1,6 +1,6 @@
 {
   "name": "my-dx-sprint-backlog",
-  "version": "5.0.5",
+  "version": "6.0.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "prestart": "pnpm run build",
