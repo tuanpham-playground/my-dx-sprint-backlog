@@ -15,6 +15,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
+      release_branch: ${{ steps.release.outputs.release_branch }}
       releases_created: ${{ steps.release.outputs.releases_created }}
       paths_released: ${{ steps.release.outputs.paths_released }}
       prs_created: ${{ steps.release.outputs.prs_created }}
@@ -60,12 +61,15 @@ jobs:
       - name: Update Manifest Version
         run: |
           echo "=========Pushing changes to=========="
-          echo ${{ steps.release.outputs.release_branch }}
-          echo ${{ steps.release.outputs.tag_name }}
-          echo ${{ steps.release.outputs.releases_created }}
-          echo ${{ steps.release.outputs.prs_created }}
-          echo ${{ steps.release.outputs.pr }}
-          echo ${{ steps.release.outputs.prs }}
+          echo ${{ needs.release.outputs.release_created }}
+          echo ${{ needs.release.outputs.releases_created }}
+          echo ${{ needs.release.outputs.release_branch }}
+          echo ${{ needs.release.outputs.paths_released }}
+          echo ${{ needs.release.outputs.tag_name }}
+          echo ${{ needs.release.outputs.releases_created }}
+          echo ${{ needs.release.outputs.prs_created }}
+          echo ${{ needs.release.outputs.pr }}
+          echo ${{ needs.release.outputs.prs }}
           echo ${{ steps.release.outputs.upload_url }}
           echo "@@@@@@@"
           pnpm syncVersion
