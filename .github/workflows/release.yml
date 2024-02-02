@@ -50,6 +50,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(jq -r '.version' ./package.json)
-          mv ./dist/plugin.zip ./dist/dx-sprint-backlog-v${{ steps.release.outputs.tag_name }}.zip 
-          gh release upload ${{ steps.release.outputs.tag_name }} \
-            ./dist/dx-sprint-backlog-v${{ steps.release.outputs.tag_name }}.zip \
+          mv ./dist/plugin.zip ./dist/dx-sprint-backlog-v${{ needs.release.outputs.tag_name }}.zip 
+          gh release upload ${{ needs.release.outputs.tag_name }} \
+            ./dist/dx-sprint-backlog-v${{ needs.release.outputs.tag_name }}.zip \
