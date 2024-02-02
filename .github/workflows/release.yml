@@ -59,13 +59,13 @@ jobs:
           echo "=========Pushing changes to=========="
           echo "${{fromJson(needs.release.outputs.pr).headBranchName}}"
           echo "@@@@@@@"
-          pnpm syncVersion
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git checkout ${{fromJson(needs.release.outputs.pr).headBranchName}}
+          pnpm syncVersion
           git add plugin/manifest.json
           git commit -m "chore: update manifest version"
-          git push origin ${{fromJson(needs.release.outputs.pr).headBranchName}}
+          git push origin HEAD
 
   upload:
     name: Upload executables
