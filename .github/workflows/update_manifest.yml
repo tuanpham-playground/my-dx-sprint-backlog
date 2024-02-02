@@ -23,9 +23,6 @@ jobs:
 
       - name: Update Manifest Version
         run: |
-          echo "=========Pushing changes to=========="
-          echo ${{ github.head_ref }}
-          echo ${{ github.base_ref }}
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           pnpm syncVersion

@@ -37,6 +37,7 @@
     "typescript": "^5.3",
     "jest": "29",
     "webpack": "^5.90.0",
+    "babel-jest": "^29.7.0",
     "webpack-cli": "^4.10.0"
   },
   "packageManager": "pnpm@8.10.5"
