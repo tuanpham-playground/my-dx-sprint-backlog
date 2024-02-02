@@ -29,7 +29,7 @@ fs.readFile(manifestJson, "utf8", async (err, manifestJsonData) => {
           console.error("Error writing to the file:", err);
           return;
         }
-        console.log("after, JSON file has been successfully updated.", manifestJson);
+        console.log("after, JSON file has been successfully updated.", updatedJson);
       });
     } catch (parseError) {
       console.error("Error parsing JSON:", parseError);
