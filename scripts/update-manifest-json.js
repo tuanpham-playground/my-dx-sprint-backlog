@@ -22,14 +22,14 @@ fs.readFile(manifestJson, "utf8", async (err, manifestJsonData) => {
       jsonData.version = version;
 
       const updatedJson = JSON.stringify(json, null, 2);
-
+      console.log('before:',json);
       // Write the updated JSON back to the file
       fs.writeFile(manifestJson, updatedJson, "utf8", (err) => {
         if (err) {
           console.error("Error writing to the file:", err);
           return;
         }
-        console.log("JSON file has been successfully updated.");
+        console.log("after, JSON file has been successfully updated.", manifestJson);
       });
     } catch (parseError) {
       console.error("Error parsing JSON:", parseError);
