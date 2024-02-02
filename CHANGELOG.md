@@ -1,5 +1,34 @@
 # Changelog
 
+## [5.0.2](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v5.0.1...my-dx-sprint-backlog-v5.0.2) (2024-02-02)
+
+
+### Bug Fixes
+
+* config ts 14 ([#40](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/40)) ([d8ea04d](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/d8ea04d9f3ff6604461f4658e640e29bb6e7086b))
+* config ts 19 ([#46](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/46)) ([6240d4c](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/6240d4c8c8df1cda56716f63763f81370a514f56))
+* config ts 19 ([#47](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/47)) ([112573c](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/112573c07692ec261c80d3a12a1a6f1f97c5a33f))
+* config ts 19 ([#48](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/48)) ([4297360](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/4297360cd16e04489996c139a248ef6440f6c1be))
+* config ts 19 ([#49](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/49)) ([669d30e](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/669d30ef07ce0df66b4c7e7593edeed9c6e7772c))
+* config ts 19 ([#51](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/51)) ([65f0e12](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/65f0e12d775c86a327008dc16eba6ab6ab3c69f1))
+* config ts 19 ([#52](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/52)) ([ad5d38f](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/ad5d38f3744d54c2ded5a5b69fd19fdf19a62717))
+* config ts 22 ([#54](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/54)) ([4db0404](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/4db04044fe6e96bb805a179fc3fa3db939f4c93c))
+* fix bug 11 ([#36](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/36)) ([cb0e464](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/cb0e4642446c82a80711a87c44524c61f1d68504))
+* fix bug 12 ([#38](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/38)) ([0020d20](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/0020d20cab487337e5e8e1a9d3c366591b0177a5))
+* fix bug 13 ([#39](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/39)) ([c3f37e7](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/c3f37e7c0744d1127a06c7c117c935b8e889aec5))
+* fix bug 15 ([025b3ab](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/025b3abaf2f95ef4d9bbfa3b455aa6c28576f3d8))
+* fix bug 15 ([74003af](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/74003afc947ddfda0634c1fe6ed8397957666ef0))
+* fix bug 15 ([fba8e7f](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/fba8e7f3e789172c9c729e6e17bfadb70cea924c))
+* fix bug 15 ([f825672](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/f82567259f381570af8dcacb9ed92b457bcda3ae))
+* fix bug 15 ([6f676d1](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/6f676d11e73654df09b15f7678dbf8969aba6de6))
+* fix bug 16 ([#41](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/41)) ([2b80feb](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/2b80febe69f70b95a423337ce3771f76b78bb7e1))
+* fix bug 17 ([#42](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/42)) ([30bb8ad](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/30bb8ad9cb35eba93b479e64543d8d3079c01d61))
+* fix bug 18 ([#43](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/43)) ([8eb5281](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/8eb5281fc780bfa574c846a8c6bb9685d72a08a6))
+* fix bug 19 ([#44](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/44)) ([bc0e80c](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/bc0e80cf0b2776390dadd32cc8b1830e6fcffe97))
+* fix bug 19 ([#45](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/45)) ([f04a979](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/f04a97991676ca4ec5203f41e390b46d55495620))
+* fix bug 20 ([#53](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/53)) ([3aacacc](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/3aacacc5e009733e9817e52e3280836f14845a6f))
+* fix bug 23 ([#55](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/55)) ([e4c26be](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/e4c26bed5babd64e61fa83e37394afd475ffd840))
+
 ## [5.0.1](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v5.0.0...my-dx-sprint-backlog-v5.0.1) (2024-02-01)
 
 
