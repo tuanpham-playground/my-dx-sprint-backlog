@@ -31,7 +31,6 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    needs: update_manifest
     if: ${{ needs.release.outputs.release_created }}
     steps:
       # setup ruby environment before running jonabc/setup-licensed
