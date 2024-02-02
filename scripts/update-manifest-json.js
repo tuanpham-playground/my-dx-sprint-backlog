@@ -1,38 +1,22 @@
 const fs = require("fs");
 
 // Specify the path to the JSON file
-const packageJson = "./package.json";
-const manifestJson = "./plugin/manifest.json";
+const packageFilePath = "./package.json";
+const manifestFilePath = "./plugin/manifest.json";
 
 // Read the JSON file
-fs.readFile(manifestJson, "utf8", async (err, manifestJsonData) => {
-  if (err) {
-    console.error("Error reading the file:", err);
-    return;
-  }
+const packageContent = fs.readFileSync(packageFilePath, "utf8");
+const packageJson = JSON.parse(packageContent);
 
-  let version = 0;
-  await fs.readFile(packageJson, "utf8", (err, dataPackageJson) => {
-    const jsonData = JSON.parse(dataPackageJson);
-    version = jsonData.version;
+const updatedVersion = packageJson.version;
 
-    try {
-      const json = JSON.parse(manifestJsonData);
+const manifestContent = fs.readFileSync(manifestFilePath, "utf8");
+const manifestJson = JSON.parse(manifestContent);
+manifestJson.version = updatedVersion;
 
-      jsonData.version = version;
-
-      const updatedJson = JSON.stringify(json, null, 2);
-      console.log('before:',json);
-      // Write the updated JSON back to the file
-      fs.writeFile(manifestJson, updatedJson, "utf8", (err) => {
-        if (err) {
-          console.error("Error writing to the file:", err);
-          return;
-        }
-        console.log("after, JSON file has been successfully updated.", updatedJson);
-      });
-    } catch (parseError) {
-      console.error("Error parsing JSON:", parseError);
-    }
-  });
-});
+console.log('manifestJson.version:',manifestJson.version);
+fs.writeFileSync(
+  manifestFilePath,
+  JSON.stringify(manifestJson, null, 2),
+  "utf8"
+);
