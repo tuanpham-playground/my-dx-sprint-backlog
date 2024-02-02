@@ -29,6 +29,7 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           pnpm syncVersion
+          git status
           git add plugin/manifest.json
           git commit -m "chore: update manifest version"
           git push origin HEAD
