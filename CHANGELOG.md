@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.4](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v5.0.3...my-dx-sprint-backlog-v5.0.4) (2024-02-02)
+
+
+### Bug Fixes
+
+* fix bug 27 ([#61](https://github.com/tuanpham-playground/my-dx-sprint-backlog/issues/61)) ([889ad48](https://github.com/tuanpham-playground/my-dx-sprint-backlog/commit/889ad4824ce205981fe3f64ecba8c937dd383c06))
+
 ## [5.0.3](https://github.com/tuanpham-playground/my-dx-sprint-backlog/compare/my-dx-sprint-backlog-v5.0.2...my-dx-sprint-backlog-v5.0.3) (2024-02-02)
 
 
