@@ -54,23 +54,10 @@ jobs:
           node-version: "18"
           cache: "pnpm"
 
-<<<<<<< Updated upstream
-      - name: Configure npm user
-        run: npm config set "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          HEAD_BRANCH_NAME: ${{ fromJSON(needs.release.outputs.pr).headBranchName) }}
-
-      - name: Update Manifest Version
-        run: |
-          echo "=========Pushing changes to=========="
-          ECHO "$HEAD_BRANCH_NAME"
-=======
       - name: Update Manifest Version
         run: |
           echo "=========Pushing changes to=========="
           echo "${{fromJson(needs.release.outputs.pr).headBranchName}}"
->>>>>>> Stashed changes
           echo "@@@@@@@"
           pnpm syncVersion
           git config user.name github-actions[bot]
