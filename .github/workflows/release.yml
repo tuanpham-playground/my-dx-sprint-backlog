@@ -32,13 +32,9 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    needs: release
     if: ${{ needs.release.outputs.release_created }}
     steps:
-      # setup ruby environment before running jonabc/setup-licensed
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ruby
-
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
