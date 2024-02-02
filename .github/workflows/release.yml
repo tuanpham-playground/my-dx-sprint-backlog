@@ -46,6 +46,12 @@ jobs:
           ruby-version: ruby
 
       - uses: actions/checkout@v4
+      - run: |
+          git fetch
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          echo "git checkout ${{fromJson(needs.release.outputs.pr).headBranchName}}"
+          git checkout ${{fromJson(needs.release.outputs.pr).headBranchName}}
 
       - uses: pnpm/action-setup@v2
 
@@ -59,9 +65,6 @@ jobs:
           echo "=========Pushing changes to=========="
           echo "${{fromJson(needs.release.outputs.pr).headBranchName}}"
           echo "@@@@@@@"
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git checkout ${{fromJson(needs.release.outputs.pr).headBranchName}}
           pnpm syncVersion
           git add plugin/manifest.json
           git commit -m "chore: update manifest version"
