@@ -63,7 +63,7 @@ jobs:
       - name: Update Manifest Version
         run: |
           echo "=========Pushing changes to=========="
-          ECHO "$HEAD_BRANCH_NAME"
+          echo "$HEAD_BRANCH_NAME"
           echo "@@@@@@@"
           pnpm syncVersion
           git config user.name github-actions[bot]
