@@ -12,6 +12,7 @@ name: release
 jobs:
   release:
     name: Create release
+    outputs:
       release_created: ${{ steps.release.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
