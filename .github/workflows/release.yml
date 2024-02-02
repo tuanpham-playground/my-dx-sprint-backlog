@@ -58,7 +58,7 @@ jobs:
         run: npm config set "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          HEAD_BRANCH_NAME: ${{ fromJSON(needs.release.outputs.pr).headBranchName) }}
+          HEAD_BRANCH_NAME: ${{ fromJSON(needs.release.outputs.pr).headBranchName }}
 
       - name: Update Manifest Version
         run: |
