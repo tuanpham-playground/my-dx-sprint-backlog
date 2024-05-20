@@ -22,7 +22,7 @@ jobs:
         with:
           app-id: ${{ secrets.RELEASE_GITHUB_APP_ID}}
           private-key: ${{ secrets.RELEASE_GITHUB_APP_KEY }}
-      - uses: oogleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v4
         id: release
         with:
           token: ${{ steps.create-iat.outputs.token }}
